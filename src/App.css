@@ -13,7 +13,7 @@
 
 .column {
   width: 250px;
-  height: 70vh;
+  min-height: 100px;
 
   margin: 10px;
 

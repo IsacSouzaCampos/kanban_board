@@ -22,33 +22,58 @@ const defaultColumns = [
   }
 ];
 
+
+const reorder = (list, startIndex, endIndex) => {
+  var result = Array.from(list)
+  const [item] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, item)
+  
+  return result
+}
+
+
 function App() {
   const [columns] = useState(defaultColumns);
 
+  const onDragEnd = (result) => {
+    // console.log(result)
+    if (!result.destination) {
+      return;
+    }
+
+    // var columnsList = Array.from(columns)
+    // const sourceColumnIndex = columns.prototype.findIndex(
+    //   columns.filter((column) => column.id === result.source.droppableId)
+    // )
+
+    // console.log(sourceColumnIndex)
+  }
+
   return (
     <div className="App">
-      <DragDropContext>
-        {columns.map((column, index) => (
-          <div class='column'>
-            <h1 class='name'>{column.name}</h1>
-            <Droppable droppableId={column.id}>
+      <DragDropContext onDragEnd={onDragEnd}>
+        {columns.map((column) => (
+          <div className='column'>
+            <h1 className='name'>{column.name}</h1>
+            <Droppable droppableId={column.id} key={column.id}>
               {(provided) => (
-                <div ref={provided.innerRef} class='column-content'>
+                <div ref={provided.innerRef} className='column-content'>
                   {column.items.map((item, index) => (
-                    <Draggable draggableId={item.id} index={index}>
+                    <Draggable draggableId={item.id} index={index} key={item.id}>
                       {(provided) => (
                         <div
                           {...provided.dragHandleProps}
                           {...provided.draggableProps}
                           ref={provided.innerRef}
-                          class='item'
+                          className='item'
                         >
-                          <div class='title'>{item.title}</div>
-                          <div class='item-content'>{item.content}</div>
+                          <div className='title'>{item.title}</div>
+                          <div className='item-content'>{item.content}</div>
                         </div>
                       )}
                     </Draggable>
                   ))}
+                  {provided.placeholder}
                 </div>
               )}
             </Droppable>
