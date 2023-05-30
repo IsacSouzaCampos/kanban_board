@@ -1,6 +1,8 @@
-import "./App.css";
-import { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import "./App.css"
+
+import { useState } from "react"
+import { DragDropContext } from "react-beautiful-dnd"
+import AppColumn from "./components/AppColumn";
 
 
 const defaultColumns = [
@@ -8,17 +10,15 @@ const defaultColumns = [
     name: "A Fazer",
     id: "1",
     items: [{id: '11', title: 'Exemplo 1', content: 'Esse é o exemplo 1.'},
-            {id: '12', title: 'Exemplo 2', content: 'Esse outro é o exemplo 2.'}],
+            {id: '12', title: 'Exemplo 2', content: 'Esse outro é o exemplo 2.'},
+            {id: '13', title: 'Exemplo 3', content: 'Aqui podemos ver o exemplo 3.'}],
   },
   {
     name: "Fazendo",
     id: "2",
-    items: [{id: '21', title: 'Exemplo 3', content: 'Aqui temos o exemplo 3.'},],
-  },
-  {
-    name: "Feito",
-    id: "3",
-    items: [],
+    items: [{id: '21', title: 'Exemplo 1', content: 'Esse é o exemplo 1.'},
+            {id: '22', title: 'Exemplo 2', content: 'Esse outro é o exemplo 2.'},
+            {id: '23', title: 'Exemplo 3', content: 'Aqui podemos ver o exemplo 3.'}],
   }
 ];
 
@@ -53,31 +53,7 @@ function App() {
     <div className="App">
       <DragDropContext onDragEnd={onDragEnd}>
         {columns.map((column) => (
-          <div className='column'>
-            <h1 className='name'>{column.name}</h1>
-            <Droppable droppableId={column.id} key={column.id}>
-              {(provided) => (
-                <div ref={provided.innerRef} className='column-content'>
-                  {column.items.map((item, index) => (
-                    <Draggable draggableId={item.id} index={index} key={item.id}>
-                      {(provided) => (
-                        <div
-                          {...provided.dragHandleProps}
-                          {...provided.draggableProps}
-                          ref={provided.innerRef}
-                          className='item'
-                        >
-                          <div className='title'>{item.title}</div>
-                          <div className='item-content'>{item.content}</div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </div>
+          <AppColumn id={column.id} name={column.name} items={column.items}/>
         ))}
       </DragDropContext>
     </div>

@@ -1,0 +1,19 @@
+.item-container {
+    margin: 10px;
+
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px lightgray;
+
+    background-color: white;
+}
+
+.AppItem > .title {
+    border-radius: 5px 5px 0 0;
+    background-color: lightgray;
+}
+
+.item-content {
+    margin: 10px;
+}
+  
